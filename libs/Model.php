@@ -74,12 +74,18 @@ class Model
     }
     public function checkEmail($data)
     {
-        if(isset($data) && !empty($data))
+         if(isset($data) && !empty($data))
         {
-            if (!preg_match("/^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/", $data)) {
+
+            if (preg_match("/^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/", $data))
+            {
+                return $data;
+            }
+            else
+            {
                 $this->placeholder['%MAIL_CORR%'] = 'no correct mail';
             }
-            return $data;
+
         }
         else
         {
