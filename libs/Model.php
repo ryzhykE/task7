@@ -107,7 +107,7 @@ class Model
                                        
     public function sendEmail()
      {
-            $headers = 'Content-type: text/html; charset=utf-8' . "\r\n";
+			$header = 'From: '.$this->mail . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n";
             $headers .= "Reply-To: ".$this->mail."<". $this->mail.">\r\n" .
              $to = 'stoyatboy@gmail.com';
              $subject = $this->select;
