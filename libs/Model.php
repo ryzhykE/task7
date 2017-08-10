@@ -107,19 +107,33 @@ class Model
                                        
     public function sendEmail()
      {
-			$header = 'From: '.$this->mail . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n";
-            $headers .= "Reply-To: ".$this->mail."<". $this->mail.">\r\n" .
+         //date_default_timezone_set('Europe/Kiev');
+		$header = 'From: '.$this->mail . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n";
+            $header .= "Reply-To: ".$this->mail."<". $this->mail.">\r\n" .
              $to = 'stoyatboy@gmail.com';
              $subject = $this->select;
              $comment = $this->comment;
              $message = "From ". $this->name .PHP_EOL.
             'Subject: ' .$this->select.PHP_EOL .
              'Ip: ' . $_SERVER['REMOTE_ADDR'] . PHP_EOL . $comment;
-             $mailResult = mail($to,$subject,$message,$headers);
+
+         /**
+          *  $msg = 'From: '.$this->fullNameProp."\r\n";
+         $msg .= 'Message: ' . $this->msgProp . "\r\n";
+         $msg .= "\r\n".'IP-adress: '. $_SERVER['REMOTE_ADDR']. "\r\n";
+         $msg .= 'Date and time: '.date("Y-m-d H:i:s");
+         $header = 'From: '.$this->emailProp . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n"
+         . 'Reply-To: '. $this->emailProp . "\r\n" ;
+          */
+
+             $mailResult = mail($to,$subject,$message,$header);
          if ($mailResult)
          {
-
-             return $this->placeholder['%SUCCESSFUL_SENT%'] = 'Message successfully sent' ;
+             $this->placeholder['%NAME%'] = '';
+             $this->placeholder['%MAIL%'] = '';
+             $this->placeholder['%COMMENT%'] = '';
+             $this->placeholder['%SUCCESSFUL_SENT%'] = 'Message successfully sent' ;
+             return true;
          }
          else
          {
